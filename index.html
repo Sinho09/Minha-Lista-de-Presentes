@@ -35,23 +35,36 @@
     </script>
 </head>
 <body>
-    
     <h1>Minha Lista de Presentes</h1>
-    
     <button id="selecionarPresente" onclick="toggleModoSelecao()">Selecionar Presente</button>
+
+    <!-- Pop-up de tutorial -->
+    <div id="tutorialPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="fecharTutorial()">&times;</span>
+            <h2>Como usar o site</h2>
+            <ol>
+                <li>Clique em "Comprar Presente" para visitar o site do item.</li>
+                <li>Se já decidiu o que vai comprar, clique em "Selecionar Presente".</li>
+                <li>Clique novamente em "Comprar Presente" e, após confirmar, o presente escolhido ficará indisponível automaticamente. </li>
+            </ol>
+            <button onclick="fecharTutorial()">Entendi!</button>
+        </div>
+    </div>
+
     <div class="container">
-       
-      <!-- Presentes -->
-        
+      
+        <!-- Presentes -->
+      
         <div class="item" id="presente1" onclick="marcarComprado(this)">
             <img src="https://down-br.img.susercontent.com/file/br-11134201-23030-y14516s29vov8b.webp" alt="Presente1">
             <p>Pulseira Milanese</p>
             <h3>± 30 R$</h3>
             <a href="https://encurtador.com.br/eMTDk" target="_blank" class="botao-compra">Comprar Presente</a>
         </div>
+
+        <!-- Presente 2 -->
       
-    <!-- Presente 2 -->
-        
         <div class="item" id="presente2" onclick="marcarComprado(this)">
             <img src="https://down-br.img.susercontent.com/file/sg-11134201-7rd4z-lx6cqq9dtf7s06.webp" alt="Presente2">
             <p>Jogo de Lençol Cama 4 Peças (Casal Padrão)</p>
@@ -59,7 +72,7 @@
             <a href="https://encurtador.com.br/9KFoe" target="_blank" class="botao-compra">Comprar Presente</a>
         </div>
 
-        <!-- Presente 3 -->
+         <!-- Presente 3 -->
         
         <div class="item" id="presente3" onclick="marcarComprado(this)">
             <img src="https://down-br.img.susercontent.com/file/sg-11134201-7rd4v-lwsiymtrvpaze8.webp" alt="Presente3">
@@ -85,15 +98,7 @@
             <h3>± 30 R$</h3>
             <a href="https://encurtador.com.br/0X51z" target="_blank" class="botao-compra">Comprar Presente</a>
         </div>
-
-        <!-- Presente 6 -->
-        
-        <div class="item" id="presente6" onclick="marcarComprado(this)">
-            <img src="https://down-br.img.susercontent.com/file/f8c70216804ec4263805c0c274c46122.webp" alt="Presente6">
-            <p>Bone</p>
-            <p href="" target="_blank" class="botao-compra">Qualquer Estilo</p>
-        </div>
-
+      
         <!-- Presente 7 -->
         
         <div class="item" id="presente7" onclick="marcarComprado(this)">
@@ -147,8 +152,9 @@
             <h3>± Preço</h3>
             <a href="Link" class="botao-compra">Comprar Presente</a>
         </div>
-         -->
+         
     </div>
+
     <script src="script.js" type="module"></script> <!-- Referência para o arquivo JS -->
 </body>
 </html>
