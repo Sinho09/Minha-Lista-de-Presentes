@@ -102,5 +102,31 @@ function carregarEstado() {
 
 window.carregarEstado = carregarEstado; // Opcional, caso queira chamar globalmente
 
+// Função para abrir o pop-up de tutorial
+function abrirPopup() {
+    const popup = document.querySelector('.popup');
+    popup.style.display = 'flex';
+}
+
+// Função para fechar o pop-up de tutorial
+function fecharPopup() {
+    const popup = document.querySelector('.popup');
+    popup.style.display = 'none';
+}
+
+window.abrirPopup = abrirPopup; // Tornar a função global
+window.fecharPopup = fecharPopup; // Tornar a função global
+
 // Carrega o estado dos presentes ao iniciar a página
-document.addEventListener('DOMContentLoaded', carregarEstado);
+document.addEventListener('DOMContentLoaded', () => {
+    carregarEstado();
+
+    // Exibe o pop-up de tutorial ao carregar a página
+    abrirPopup();
+});
+
+// Adiciona o evento de fechamento do pop-up ao clicar no botão "Entendi!"
+document.querySelector('.popup-content button').addEventListener('click', fecharPopup);
+
+// Adiciona o evento de fechamento do pop-up ao clicar no ícone de fechar
+document.querySelector('.close').addEventListener('click', fecharPopup);
