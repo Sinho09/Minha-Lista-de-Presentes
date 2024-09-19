@@ -1,3 +1,28 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
+import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
+
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBn8X2IrFqd8CohEaXVnUBP-kOHhWs_BQk",
+    authDomain: "site-de-lista-de-presentes.firebaseapp.com",
+    databaseURL: "https://site-de-lista-de-presentes-default-rtdb.firebaseio.com/",
+    projectId: "site-de-lista-de-presentes",
+    storageBucket: "site-de-lista-de-presentes.appspot.com",
+    messagingSenderId: "973927838611",
+    appId: "1:973927838611:web:496b79587e1342132d6e66"
+};
+
+// Inicializando o Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+// Tornar as funções do Firebase disponíveis globalmente
+window.database = database;
+window.ref = ref;
+window.set = set;
+window.get = get;
+
+// Variável para controlar o modo de seleção
 let modoSelecao = false;
 
 // Função para alternar o modo de seleção de presente
@@ -7,6 +32,9 @@ function toggleModoSelecao() {
     botao.textContent = modoSelecao ? 'Sair do Modo Seleção' : 'Selecionar Presente';
 }
 
+window.toggleModoSelecao = toggleModoSelecao; // Tornar a função global
+
+// Função para marcar ou desmarcar um presente como comprado
 function marcarComprado(item) {
     if (modoSelecao) {
         const id = item.id;
@@ -23,14 +51,17 @@ function marcarComprado(item) {
                 item.classList.add('comprado');
                 link.textContent = 'Presente já foi comprado';
                 salvarEstado(id, true); // Salva no Firebase como comprado
-                toggleModoSelecao();
+                toggleModoSelecao(); // Sai do modo de seleção
             }
         }
     }
 }
 
+window.marcarComprado = marcarComprado; // Tornar a função global
+
+// Função para salvar o estado (presente comprado ou não) no Firebase
 function salvarEstado(id, comprado) {
-    const dbRef = ref(window.database, 'presentes/' + id);
+    const dbRef = ref(database, 'presentes/' + id);
     set(dbRef, {
         comprado: comprado
     }).then(() => {
@@ -40,8 +71,9 @@ function salvarEstado(id, comprado) {
     });
 }
 
+// Função para carregar o estado dos presentes do Firebase ao iniciar a página
 function carregarEstado() {
-    const dbRef = ref(window.database, 'presentes');
+    const dbRef = ref(database, 'presentes');
     get(dbRef).then((snapshot) => {
         if (snapshot.exists()) {
             snapshot.forEach((childSnapshot) => {
@@ -54,6 +86,9 @@ function carregarEstado() {
                     if (comprado) {
                         item.classList.add('comprado');
                         link.textContent = 'Presente já foi comprado';
+                    } else {
+                        item.classList.remove('comprado');
+                        link.textContent = 'Comprar Presente';
                     }
                 }
             });
@@ -64,6 +99,8 @@ function carregarEstado() {
         console.error('Erro ao carregar estado: ', error);
     });
 }
+
+window.carregarEstado = carregarEstado; // Opcional, caso queira chamar globalmente
 
 // Carrega o estado dos presentes ao iniciar a página
 document.addEventListener('DOMContentLoaded', carregarEstado);
